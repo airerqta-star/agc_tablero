@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tablero de Control · Agencia Gubernamental de Control</title>
+<meta name="description" content="Dashboard interactivo de seguimiento de tareas y proyectos de la Agencia Gubernamental de Control - Municipalidad de Reconquista">
+<link rel="icon" type="image/jpeg" href="https://res.cloudinary.com/dthg9wo6r/image/upload/v1763866260/logoagc_jkb5my.jpg">
+
+<!-- Open Graph / Social -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tablero de Control · AGC Reconquista">
+<meta property="og:description" content="Dashboard de gestión y seguimiento de tareas de la Agencia Gubernamental de Control - Secretaría de Control Público - Municipalidad de Reconquista">
+<meta property="og:image" content="https://res.cloudinary.com/dthg9wo6r/image/upload/v1772388293/tablero-de-control_xe3fmb.jpg">
+<meta property="og:url" content="">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tablero de Control · AGC Reconquista">
+<meta name="twitter:description" content="Dashboard de gestión y seguimiento de tareas de la Agencia Gubernamental de Control">
+<meta name="twitter:image" content="https://res.cloudinary.com/dthg9wo6r/image/upload/v1772388293/tablero-de-control_xe3fmb.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   THEME SYSTEM - Steel Dark & Soft Light
+   ═══════════════════════════════════════════════════════════════════ */
+:root {
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --radius-xs: 5px;
+}
+
+[data-theme="dark"] {
+  --bg-base: #1a1d23;
+  --bg-surface: #22262e;
+  --bg-elevated: #2a2f38;
+  --bg-hover: #323842;
+  --bg-input: #2a2f38;
+  --border: rgba(255,255,255,0.07);
+  --border-strong: rgba(255,255,255,0.12);
+  --text-primary: #e8eaed;
+  --text-secondary: #9aa0ab;
+  --text-muted: #6b7280;
+  --text-inverse: #1a1d23;
+  --accent: #60a5fa;
+  --accent-soft: rgba(96,165,250,0.12);
+  --accent-border: rgba(96,165,250,0.25);
+  --success: #4ade80;
+  --success-soft: rgba(74,222,128,0.12);
+  --warning: #fbbf24;
+  --warning-soft: rgba(251,191,36,0.12);
+  --danger: #f87171;
+  --danger-soft: rgba(248,113,113,0.12);
+  --purple: #c084fc;
+  --purple-soft: rgba(192,132,252,0.12);
+  --orange: #fb923c;
+  --orange-soft: rgba(251,146,60,0.12);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.3);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.4);
+  --header-bg: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #1a2332 100%);
+  --chart-grid: rgba(255,255,255,0.06);
+  --prog-track: #323842;
+  --badge-bg: rgba(255,255,255,0.06);
+  --card-glow: none;
+  --skeleton: #2a2f38;
+}
+
+[data-theme="light"] {
+  --bg-base: #f4f6f9;
+  --bg-surface: #ffffff;
+  --bg-elevated: #f8f9fb;
+  --bg-hover: #eef1f5;
+  --bg-input: #f0f2f5;
+  --border: rgba(0,0,0,0.07);
+  --border-strong: rgba(0,0,0,0.12);
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  --text-inverse: #ffffff;
+  --accent: #3b82f6;
+  --accent-soft: rgba(59,130,246,0.08);
+  --accent-border: rgba(59,130,246,0.2);
+  --success: #22c55e;
+  --success-soft: rgba(34,197,94,0.08);
+  --warning: #f59e0b;
+  --warning-soft: rgba(245,158,11,0.08);
+  --danger: #ef4444;
+  --danger-soft: rgba(239,68,68,0.08);
+  --purple: #8b5cf6;
+  --purple-soft: rgba(139,92,246,0.08);
+  --orange: #f97316;
+  --orange-soft: rgba(249,115,22,0.08);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.08);
+  --header-bg: linear-gradient(135deg, #1e3a5f 0%, #1a365d 50%, #1e40af 100%);
+  --chart-grid: rgba(0,0,0,0.06);
+  --prog-track: #e5e7eb;
+  --badge-bg: rgba(0,0,0,0.04);
+  --card-glow: none;
+  --skeleton: #e5e7eb;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PRINT / EXPORT (light mode forced)
+   ═══════════════════════════════════════════════════════════════════ */
+@media print {
+  [data-theme="dark"] {
+    --bg-base: #ffffff !important;
+    --bg-surface: #ffffff !important;
+    --bg-elevated: #f8f9fb !important;
+    --border: rgba(0,0,0,0.1) !important;
+    --text-primary: #1e293b !important;
+    --text-secondary: #64748b !important;
+    --text-muted: #94a3b8 !important;
+    --shadow-sm: none !important;
+    --shadow-md: none !important;
+    --shadow-lg: none !important;
+    --header-bg: linear-gradient(135deg, #1e3a5f, #1e40af) !important;
+  }
+  .filters-bar, .theme-toggle, .btn-export { display:none !important; }
+  body { font-size: 11px !important; }
+  .content { padding: 16px !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   BASE & RESET
+   ═══════════════════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+  transition: background var(--transition), color var(--transition);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════════════════════════════ */
+.header {
+  background: var(--header-bg);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+.header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 22px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+}
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.header-logo {
+  height: 54px;
+  width: auto;
+  border-radius: 6px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+}
+.header-sep {
+  width: 1px;
+  height: 44px;
+  background: rgba(255,255,255,0.15);
+}
+.header-info { display: flex; flex-direction: column; gap: 2px; }
+.header-org {
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  font-weight: 500;
+}
+.header-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+}
+.header-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  font-weight: 400;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.header-banner {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.85;
+}
+.header-date-box {
+  text-align: right;
+  border-left: 1px solid rgba(255,255,255,0.1);
+  padding-left: 14px;
+}
+.header-date-box .date-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.35);
+}
+.header-date-box .date-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.8);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TOOLBAR (theme toggle + export)
+   ═══════════════════════════════════════════════════════════════════ */
+.toolbar {
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  transition: background var(--transition);
+}
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  padding: 5px 6px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.theme-toggle:hover { border-color: var(--accent); }
+.theme-btn {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  transition: all var(--transition);
+  color: var(--text-muted);
+}
+.theme-btn.active {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(96,165,250,0.3);
+}
+.btn-export {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: var(--bg-input);
+  color: var(--text-secondary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.btn-export:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CONTENT WRAPPER
+   ═══════════════════════════════════════════════════════════════════ */
+.content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 28px 32px 40px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   FILTER BAR
+   ═══════════════════════════════════════════════════════════════════ */
+.filters-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 28px;
+  align-items: center;
+}
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.filter-label {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+}
+.filter-select, .filter-input {
+  padding: 7px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-input);
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  min-width: 140px;
+  transition: all var(--transition);
+  outline: none;
+  appearance: auto;
+}
+.filter-select:focus, .filter-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.filter-input { min-width: 130px; }
+.btn-reset {
+  padding: 7px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  align-self: flex-end;
+}
+.btn-reset:hover { border-color: var(--danger); color: var(--danger); }
+
+.active-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 99px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 600;
+}
+.filter-chip .chip-x {
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+  opacity: 0.7;
+}
+.filter-chip .chip-x:hover { opacity: 1; }
+.results-count {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   STATS ROW
+   ═══════════════════════════════════════════════════════════════════ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.stat-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+.stat-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.stat-card.c-blue::before { background: var(--accent); }
+.stat-card.c-green::before { background: var(--success); }
+.stat-card.c-yellow::before { background: var(--warning); }
+.stat-card.c-red::before { background: var(--danger); }
+.stat-card.c-purple::before { background: var(--purple); }
+.stat-icon {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+.stat-card.c-blue .stat-icon { background: var(--accent-soft); }
+.stat-card.c-green .stat-icon { background: var(--success-soft); }
+.stat-card.c-yellow .stat-icon { background: var(--warning-soft); }
+.stat-card.c-red .stat-icon { background: var(--danger-soft); }
+.stat-card.c-purple .stat-icon { background: var(--purple-soft); }
+.stat-number {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-card.c-blue .stat-number { color: var(--accent); }
+.stat-card.c-green .stat-number { color: var(--success); }
+.stat-card.c-yellow .stat-number { color: var(--warning); }
+.stat-card.c-red .stat-number { color: var(--danger); }
+.stat-card.c-purple .stat-number { color: var(--purple); }
+.stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CHARTS ROW
+   ═══════════════════════════════════════════════════════════════════ */
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.chart-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition);
+}
+.chart-card:hover {
+  box-shadow: var(--shadow-md);
+}
+.chart-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.chart-area { position: relative; }
+
+/* Donut */
+.donut-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.donut-wrapper {
+  position: relative;
+  width: 160px; height: 160px;
+}
+.donut-wrapper canvas { width: 160px !important; height: 160px !important; }
+.donut-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.donut-center .big {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent);
+  display: block;
+  line-height: 1;
+}
+.donut-center .sub {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.donut-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+.legend-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Bar chart (CSS only) */
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  height: 160px;
+  padding-top: 10px;
+}
+.bar-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+  justify-content: flex-end;
+}
+.bar-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.bar-fill {
+  width: 100%;
+  max-width: 40px;
+  border-radius: 6px 6px 2px 2px;
+  min-height: 4px;
+  transition: height 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.bar-label {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.2;
+  max-width: 70px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Horizontal progress list */
+.progress-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.progress-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.progress-row-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.progress-area-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.progress-area-pct {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+}
+.progress-track {
+  height: 8px;
+  background: var(--prog-track);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SECTION TITLE
+   ═══════════════════════════════════════════════════════════════════ */
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-title .count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   VIEW TOGGLE
+   ═══════════════════════════════════════════════════════════════════ */
+.view-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.view-toggle {
+  display: flex;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.view-btn {
+  padding: 6px 14px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.view-btn.active {
+  background: var(--accent);
+  color: #fff;
+}
+.view-btn:hover:not(.active) { color: var(--accent); }
+.sort-select {
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-input);
+  color: var(--text-secondary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  outline: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TASK CARDS (Grid View)
+   ═══════════════════════════════════════════════════════════════════ */
+.tasks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 16px;
+  margin-bottom: 36px;
+}
+.task-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition);
+  overflow: hidden;
+  cursor: default;
+}
+.task-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.card-accent {
+  height: 3px;
+  width: 100%;
+}
+.card-body {
+  padding: 18px 20px;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.card-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.badge {
+  font-size: 9px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 99px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.badge-area {
+  background: var(--badge-bg);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+.badge-priority-alta { background: var(--danger-soft); color: var(--danger); border: 1px solid rgba(248,113,113,0.25); }
+.badge-priority-media { background: var(--warning-soft); color: var(--warning); border: 1px solid rgba(251,191,36,0.25); }
+.badge-priority-baja { background: var(--success-soft); color: var(--success); border: 1px solid rgba(74,222,128,0.25); }
+.badge-status {
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.status-pendiente { background: var(--badge-bg); color: var(--text-muted); border: 1px solid var(--border); }
+.status-en_progreso { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent-border); }
+.status-completada { background: var(--success-soft); color: var(--success); border: 1px solid rgba(74,222,128,0.25); }
+.status-pausada { background: var(--warning-soft); color: var(--warning); border: 1px solid rgba(251,191,36,0.25); }
+.status-cancelada { background: var(--danger-soft); color: var(--danger); border: 1px solid rgba(248,113,113,0.25); }
+
+.card-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+}
+.card-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+.card-meta span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.card-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.card-progress .progress-track { flex: 1; height: 6px; }
+.card-progress .pct {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  min-width: 36px;
+  text-align: right;
+}
+
+/* Stages inside card */
+.card-stages {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border);
+}
+.card-stages-title {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+.stage-mini {
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  border-radius: var(--radius-xs);
+  background: var(--bg-elevated);
+  border-left: 3px solid var(--border);
+}
+.stage-mini.stg-completada { border-left-color: var(--success); }
+.stage-mini.stg-en_progreso { border-left-color: var(--accent); }
+.stage-mini.stg-pausada { border-left-color: var(--warning); }
+.stage-mini-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.stage-mini-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.stage-mini-pct {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+}
+.stage-mini-agent {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.stage-mini .progress-track { height: 4px; }
+
+/* Metrics inside stage */
+.metric-mini {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 0;
+  font-size: 10px;
+}
+.metric-mini-name {
+  flex: 1;
+  color: var(--text-secondary);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.metric-mini-track {
+  width: 50px;
+  height: 3px;
+  background: var(--prog-track);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.metric-mini-fill {
+  height: 100%;
+  border-radius: 99px;
+}
+.metric-mini-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+  min-width: 56px;
+  text-align: right;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TABLE VIEW
+   ═══════════════════════════════════════════════════════════════════ */
+.tasks-table-wrap {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 36px;
+}
+.tasks-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.tasks-table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+}
+.tasks-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.tasks-table tbody tr {
+  transition: background var(--transition);
+}
+.tasks-table tbody tr:hover {
+  background: var(--bg-hover);
+}
+.tasks-table tbody tr:last-child td { border-bottom: none; }
+.table-title { font-weight: 600; }
+.table-prog-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 120px;
+}
+.table-prog-wrap .progress-track { flex: 1; height: 6px; }
+.table-prog-wrap .pct {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 32px;
+  text-align: right;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   EMPTY STATE
+   ═══════════════════════════════════════════════════════════════════ */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+.empty-state .icon { font-size: 48px; margin-bottom: 12px; }
+.empty-state .msg { font-size: 15px; font-weight: 600; }
+.empty-state .hint { font-size: 12px; margin-top: 6px; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════════════════ */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 20px 32px;
+  text-align: center;
+  transition: all var(--transition);
+}
+.footer-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.footer-org {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.footer-addr {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+.footer-powered {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+.footer-powered .claude-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 99px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 9px;
+  letter-spacing: 0.5px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════════════════════════════ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.task-card, .stat-card, .chart-card {
+  animation: fadeIn 0.5s ease both;
+}
+.stats-grid .stat-card:nth-child(1) { animation-delay: 0s; }
+.stats-grid .stat-card:nth-child(2) { animation-delay: 0.06s; }
+.stats-grid .stat-card:nth-child(3) { animation-delay: 0.12s; }
+.stats-grid .stat-card:nth-child(4) { animation-delay: 0.18s; }
+.stats-grid .stat-card:nth-child(5) { animation-delay: 0.24s; }
+.stats-grid .stat-card:nth-child(6) { animation-delay: 0.30s; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .charts-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 900px) {
+  .header-inner { flex-direction: column; text-align: center; padding: 18px 20px; }
+  .header-left { flex-direction: column; }
+  .header-sep { width: 44px; height: 1px; }
+  .header-right { flex-direction: column; }
+  .content { padding: 20px 16px; }
+  .charts-grid { grid-template-columns: 1fr; }
+  .tasks-grid { grid-template-columns: 1fr; }
+  .filters-bar { flex-direction: column; }
+  .filter-select, .filter-input { min-width: 100%; }
+}
+@media (max-width: 600px) {
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .header-banner { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TASK CARD EXPAND
+   ═══════════════════════════════════════════════════════════════════ */
+.card-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  padding: 8px;
+  border: none;
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  border-top: 1px solid var(--border);
+}
+.card-toggle:hover { color: var(--accent); background: var(--accent-soft); }
+.card-toggle .arrow { transition: transform 0.3s ease; display: inline-block; }
+.card-toggle.expanded .arrow { transform: rotate(180deg); }
+.card-stages-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.card-stages-content.open {
+  max-height: 2000px;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <img src="https://res.cloudinary.com/dthg9wo6r/image/upload/v1763866260/logoagc_jkb5my.jpg" 
+           alt="AGC Logo" class="header-logo">
+      <div class="header-sep"></div>
+      <div class="header-info">
+        <div class="header-org">Municipalidad de Reconquista</div>
+        <h1 class="header-title">Tablero de Control</h1>
+        <div class="header-sub">Agencia Gubernamental de Control · Secretaría de Control Público</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <img src="https://res.cloudinary.com/dthg9wo6r/image/upload/v1763866183/Sec-Control-Publico_zxjbag.png" 
+           alt="Secretaría de Control Público" class="header-banner">
+      <div class="header-date-box">
+        <div class="date-label">Generado</div>
+        <div class="date-val" id="genDate"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <button class="btn-export" onclick="exportLight()" title="Exportar versión para impresión (modo claro)">
+    🖨️ Exportar
+  </button>
+  <div class="theme-toggle">
+    <button class="theme-btn" id="btnDark" onclick="setTheme('dark')" title="Modo oscuro">🌙</button>
+    <button class="theme-btn" id="btnLight" onclick="setTheme('light')" title="Modo claro">☀️</button>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- FILTERS -->
+  <div class="filters-bar" id="filtersBar">
+    <div class="filter-group">
+      <span class="filter-label">Área</span>
+      <select class="filter-select" id="fArea" onchange="applyFilters()">
+        <option value="">Todas las áreas</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Estado</span>
+      <select class="filter-select" id="fStatus" onchange="applyFilters()">
+        <option value="">Todos los estados</option>
+        <option value="pendiente">Pendiente</option>
+        <option value="en_progreso">En Progreso</option>
+        <option value="completada">Completada</option>
+        <option value="pausada">Pausada</option>
+        <option value="cancelada">Cancelada</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Prioridad</span>
+      <select class="filter-select" id="fPriority" onchange="applyFilters()">
+        <option value="">Todas</option>
+        <option value="alta">Alta</option>
+        <option value="media">Media</option>
+        <option value="baja">Baja</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Responsable</span>
+      <select class="filter-select" id="fAgent" onchange="applyFilters()">
+        <option value="">Todos</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Fecha Inicio</span>
+      <input type="date" class="filter-input" id="fDateFrom" onchange="applyFilters()">
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Fecha Fin</span>
+      <input type="date" class="filter-input" id="fDateTo" onchange="applyFilters()">
+    </div>
+    <div class="filter-group">
+      <span class="filter-label">Buscar</span>
+      <input type="text" class="filter-input" id="fSearch" placeholder="Título, descripción..." oninput="applyFilters()" style="min-width:180px">
+    </div>
+    <button class="btn-reset" onclick="resetFilters()">✕ Limpiar</button>
+  </div>
+
+  <!-- Active filter chips -->
+  <div class="active-filters" id="activeFilters"></div>
+  <div class="results-count" id="resultsCount"></div>
+
+  <!-- STATS -->
+  <div class="stats-grid" id="statsGrid"></div>
+
+  <!-- CHARTS -->
+  <div class="charts-grid" id="chartsGrid">
+    <div class="chart-card">
+      <div class="chart-title">Estado de Tareas</div>
+      <div class="chart-area">
+        <div class="donut-container" id="donutChart"></div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Tareas por Área</div>
+      <div class="chart-area">
+        <div class="bar-chart" id="barChart"></div>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Avance por Área</div>
+      <div class="chart-area">
+        <div class="progress-list" id="progressChart"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW CONTROLS -->
+  <div class="view-controls">
+    <div style="display:flex;gap:10px;align-items:center">
+      <div class="section-title" style="margin-bottom:0;border-bottom:none;padding-bottom:0">
+        Tareas <span class="count" id="taskCount">0</span>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <select class="sort-select" id="sortSelect" onchange="applyFilters()">
+        <option value="progress-desc">Mayor avance</option>
+        <option value="progress-asc">Menor avance</option>
+        <option value="priority">Prioridad</option>
+        <option value="area">Área</option>
+        <option value="date-desc">Más reciente</option>
+        <option value="date-asc">Más antiguo</option>
+      </select>
+      <div class="view-toggle">
+        <button class="view-btn active" id="viewGrid" onclick="setView('grid')">◫ Tarjetas</button>
+        <button class="view-btn" id="viewTable" onclick="setView('table')">☰ Tabla</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRID VIEW -->
+  <div class="tasks-grid" id="tasksGrid"></div>
+
+  <!-- TABLE VIEW -->
+  <div class="tasks-table-wrap" id="tasksTableWrap" style="display:none">
+    <table class="tasks-table">
+      <thead>
+        <tr>
+          <th>Tarea</th>
+          <th>Área</th>
+          <th>Responsable</th>
+          <th>Prioridad</th>
+          <th>Estado</th>
+          <th>Inicio</th>
+          <th>Fin</th>
+          <th>Avance</th>
+        </tr>
+      </thead>
+      <tbody id="tasksTableBody"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-org">Agencia Gubernamental de Control</div>
+    <div class="footer-addr">San Martín 1060 P.A. · Municipalidad de Reconquista · Santa Fe, Argentina</div>
+    <div class="footer-powered">
+      Desarrollo de microsistemas asistido por
+      <span class="claude-badge">⚡ POWERED BY CLAUDE · Anthropic AI</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// DATA (embedded from agc_tasks.db)
+// ═══════════════════════════════════════════════════════════════════
+const RAW_DATA = {"areas":[{"id":1,"name":"AGC","color":"#2563eb"},{"id":2,"name":"Inspección General","color":"#dc2626"},{"id":3,"name":"ASSAL","color":"#16a34a"},{"id":4,"name":"Mediación Comunitaria","color":"#9333ea"},{"id":5,"name":"Habilitaciones","color":"#ea580c"}],"agents":[{"id":12,"name":"GABRIELA AGUIRRE","area_id":5,"active":1,"area_name":"Habilitaciones"},{"id":15,"name":"LORENA GOMEZ","area_id":2,"active":1,"area_name":"Inspección General"},{"id":13,"name":"MARIANA MARTINEZ","area_id":3,"active":1,"area_name":"ASSAL"},{"id":14,"name":"MATIAS MARTINEZ","area_id":2,"active":1,"area_name":"Inspección General"},{"id":11,"name":"OSCAR CONTRERAS","area_id":2,"active":1,"area_name":"Inspección General"},{"id":7,"name":"RICARDO FRANCO","area_id":1,"active":1,"area_name":"AGC"},{"id":8,"name":"ROSANA AQUINO","area_id":5,"active":1,"area_name":"Habilitaciones"},{"id":9,"name":"SANDRA SEJAS","area_id":2,"active":1,"area_name":"Inspección General"}],"tasks":[{"id":8,"title":"HABILITACIONES - RESOLUCIONES DE HABILITACION","description":"LA RESOLUCIÓN ES EL DOCUMENTO ADMINISTRATIVO QUE FINALIZA EL PROCESO DE HABILITACION. SE PRETENDE OPTIMIZAR ESTE PROCESO MEDIANTE UNA GENERACIÓN AUTOMÁTICA DEL DOCUMENTO. PARA ELLO ES NECESARIO UN SISTEMA DE GENERACIÓN AUTOMÁTICA CON FIRMA DIGITAL CON CERTIFICADO. NO SE RECOMIENDA TOKEN.","area_id":5,"agent_id":8,"priority":"media","status":"pendiente","start_date":"2026-04-01","end_date":"2026-06-30","deadline_days":null,"use_deadline":0,"progress":0,"auto_progress":1,"order_index":0,"created_at":"2026-02-26 20:38:22","updated_at":"2026-02-26 21:16:11","initiator_id":null,"area_name":"Habilitaciones","area_color":"#ea580c","agent_name":"ROSANA AQUINO","initiator_name":null},{"id":13,"title":"CONTROL DE MALEZAS","description":"CONSISTE EN EL RECORRIDO PERMANENTE, CON RELEVAMIENTOS, CONSTATACIONES, NOTIFICACIONES Y SANCIONES.","area_id":1,"agent_id":7,"priority":"media","status":"en_progreso","start_date":"2026-01-01","end_date":"2026-12-27","deadline_days":null,"use_deadline":0,"progress":51,"auto_progress":1,"order_index":0,"created_at":"2026-02-27 08:13:14","updated_at":"2026-02-27 10:41:51","initiator_id":null,"area_name":"AGC","area_color":"#2563eb","agent_name":"RICARDO FRANCO","initiator_name":null},{"id":6,"title":"HABILITACIONES - ATENCIÓN AL PUBLICO","description":"OPTIMIZAR RECEPCIÓN DE DOCUMENTACIÓN, CONSULTAS Y ASESORAMIENTO.","area_id":5,"agent_id":8,"priority":"media","status":"pendiente","start_date":"2026-02-09","end_date":"2026-12-31","deadline_days":null,"use_deadline":0,"progress":0,"auto_progress":1,"order_index":1,"created_at":"2026-02-26 20:02:22","updated_at":"2026-02-26 20:17:12","initiator_id":null,"area_name":"Habilitaciones","area_color":"#ea580c","agent_name":"ROSANA AQUINO","initiator_name":null},{"id":11,"title":"AGC - CREACION SISTEMA DE PANEL DE TAREAS","description":"ES IRÓNICO PRESENTAR UN PANEL DE TAREAS PARA EXPLICAR LOS PASOS DE UN PANEL DE TAREAS PERO ES LA PARADOJA DE LA SITUACIÓN. UNO DE LOS PROYECTOS DE LA AGENCIA ES CREAR UN TABLERO O PANEL DE TAREAS O CONTROL O SEGUIMIENTO DE ACTIVIDADES PROPIAS.","area_id":1,"agent_id":7,"priority":"alta","status":"en_progreso","start_date":"2025-12-26","end_date":"2026-05-31","deadline_days":null,"use_deadline":0,"progress":25,"auto_progress":1,"order_index":1,"created_at":"2026-02-26 22:18:27","updated_at":"2026-02-26 22:38:57","initiator_id":null,"area_name":"AGC","area_color":"#2563eb","agent_name":"RICARDO FRANCO","initiator_name":null},{"id":7,"title":"HABILITACIONES - DESPAPELIZACION","description":"ESTA TAREA CONSISTE EN ESCANEAR LOS EXPEDIENTES ANTIGUOS Y LOS QUE SE HAN REALIZADO RECIENTEMENTE EN FORMATO PAPEL FÍSICO.","area_id":5,"agent_id":8,"priority":"baja","status":"en_progreso","start_date":"2026-02-09","end_date":"2026-12-31","deadline_days":null,"use_deadline":0,"progress":0,"auto_progress":1,"order_index":2,"created_at":"2026-02-26 20:28:50","updated_at":"2026-02-26 20:35:10","initiator_id":null,"area_name":"Habilitaciones","area_color":"#ea580c","agent_name":"ROSANA AQUINO","initiator_name":null},{"id":12,"title":"AGC - CONTROL DE VENTA DE MEDICAMENTOS","description":"APLICACIÓN ORDENANZA 8213/18. PROHIBICIÓN EXPENDIO DE MEDICAMENTOS EN ESTABLECIMIENTOS NO HABILITADOS PARA TAL ACTIVIDAD.","area_id":1,"agent_id":7,"priority":"alta","status":"en_progreso","start_date":"2026-02-02","end_date":"2026-12-31","deadline_days":null,"use_deadline":0,"progress":40,"auto_progress":1,"order_index":2,"created_at":"2026-02-27 07:37:13","updated_at":"2026-03-01 11:26:14","initiator_id":7,"area_name":"AGC","area_color":"#2563eb","agent_name":"RICARDO FRANCO","initiator_name":"RICARDO FRANCO"},{"id":9,"title":"HABILITACIONES - OPTIMIZAR INSPECCIONES EDILICIAS","description":"ES NECESARIO OPTIMIZAR LA COORDINACIÓN DE INSPECCIONES EDILICIAS, PARA ELLO ES NECESARIO DISPONER DE UNA AGENDA Y TAMBIÉN DE UN SISTEMA QUE PERMITA CREAR UN FORMULARIO DIGITAL CON FIRMA CERTIFICADA DE PARTE DEL AGENTE QUE REALIZA LA INSPECCIÓN.","area_id":5,"agent_id":12,"priority":"media","status":"pendiente","start_date":null,"end_date":null,"deadline_days":180,"use_deadline":1,"progress":0,"auto_progress":1,"order_index":3,"created_at":"2026-02-26 20:48:27","updated_at":"2026-02-26 20:51:10","initiator_id":null,"area_name":"Habilitaciones","area_color":"#ea580c","agent_name":"GABRIELA AGUIRRE","initiator_name":null},{"id":10,"title":"HABILITACIONES - REMISES","description":"LA PLATAFORMA ONLINE CONTIENE LA INFORMACIÓN QUE DEBE SER CORROBORADA POR EL PERSONAL ADMINISTRATIVO, PARA OPTIMIZAR LOS TIEMPOS HAY QUE COORDINAR LA INSPECCIÓN TÉCNICA CON EL INSPECTOR Y EL CHOFER. EL ESTADO ACTUAL IMPLICA MÁS DE UNA SEMANA. EL OBJETIVO ES REDUCIR A 5 DÍAS HÁBILES MÁXIMO.","area_id":5,"agent_id":8,"priority":"media","status":"pendiente","start_date":null,"end_date":null,"deadline_days":30,"use_deadline":1,"progress":0,"auto_progress":1,"order_index":4,"created_at":"2026-02-26 20:53:55","updated_at":"2026-02-26 20:57:57","initiator_id":null,"area_name":"Habilitaciones","area_color":"#ea580c","agent_name":"ROSANA AQUINO","initiator_name":null},{"id":14,"title":"CONTROL DE EQUINOS","description":"TAREA QUE DESEMPEÑA EL AREA CONTROL ANIMAL. OBJETIVO: REDUCIR RIESGO POR PRESENCIA DE ANIMALES EN LA VÍA PÚBLICA. LOS MISMOS SON GENERADORES DE ACCIDENTES DE TRÁNSITO, RIESGO FÍSICO PARAS LAS PERSONAS Y BIENES.","area_id":2,"agent_id":9,"priority":"media","status":"pendiente","start_date":"2026-02-02","end_date":"2026-12-27","deadline_days":null,"use_deadline":0,"progress":6,"auto_progress":1,"order_index":8,"created_at":"2026-02-27 08:21:32","updated_at":"2026-02-27 12:11:38","initiator_id":null,"area_name":"Inspección General","area_color":"#dc2626","agent_name":"SANDRA SEJAS","initiator_name":null},{"id":15,"title":"CONTROL CUIDA COCHES","description":"CONTROL DEL ESPACIO DE ESTACIONAMIENTO EN LA VÍA PUBLICA EN ZONAS COMERCIALES Y DURANTE LA REALIZACIÓN DE EVENTOS, PARA EVITAR MOLESTIAS, DENUNCIAS Y CONFLICTOS.","area_id":2,"agent_id":9,"priority":"alta","status":"en_progreso","start_date":"2026-01-01","end_date":"2026-12-31","deadline_days":null,"use_deadline":0,"progress":12,"auto_progress":1,"order_index":9,"created_at":"2026-02-27 09:04:06","updated_at":"2026-02-27 09:08:33","initiator_id":null,"area_name":"Inspección General","area_color":"#dc2626","agent_name":"SANDRA SEJAS","initiator_name":null},{"id":16,"title":"MANTENIMIENTO DE EQUIPOS Y VEHÍCULO DE INSPECCION GENERAL","description":"ESTA TAREA CONSISTE EN LOS SERVICES QUE SE DEBEN REALIZAR REGULARMENTE AL VEHÍCULO OFICIAL, ASÍ COMO ELEMENTOS DE TRABAJO DE INSPECTORES (DECIBELÍMENTRO, LINTERNAS, SILVATOS, METROS, CINTAS, TELEFONOS, ETC.)","area_id":2,"agent_id":11,"priority":"baja","status":"en_progreso","start_date":"2026-01-01","end_date":"2026-12-31","deadline_days":null,"use_deadline":0,"progress":71,"auto_progress":1,"order_index":10,"created_at":"2026-02-27 09:11:11","updated_at":"2026-02-28 14:21:19","initiator_id":null,"area_name":"Inspección General","area_color":"#dc2626","agent_name":"OSCAR CONTRERAS","initiator_name":null}],"stages":[{"id":8,"task_id":6,"title":"IMPLEMENTACIÓN DEL CHATBOT","description":"El sistema de creación del chatbot se gestiona en conjunto con el área de modernización. ","stage_type":"parallel","status":"en_progreso","start_date":"2026-02-09","end_date":"2026-03-31","deadline_days":null,"use_deadline":0,"progress":0,"order_index":1,"created_at":"2026-02-26 20:05:45","updated_at":"2026-02-26 20:05:46","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":9,"task_id":6,"title":"INCORPORAR EQUIPOS DE TELEFONIA","description":"La implementación del CHATBOT requerirá tener disponibles nuevos equipos de comunicación, acorde a la demanda de recursos que insume. Ello implica obtener celulares y tablets de gama media a fin de atender la demanda.","stage_type":"parallel","status":"pendiente","start_date":"2026-03-09","end_date":"2026-04-30","deadline_days":null,"use_deadline":0,"progress":0,"order_index":2,"created_at":"2026-02-26 20:08:36","updated_at":"2026-02-26 20:10:16","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":10,"task_id":6,"title":"HABILITACIÓN ONLINE: ENTREGA DE QR CON LINK","description":"Difundir el QR con link de PAGINA enfatizando que el trámite es gratuito, simple, desde tu casa.","stage_type":"sequential","status":"pendiente","start_date":"2026-02-09","end_date":"2026-12-31","deadline_days":null,"use_deadline":0,"progress":0,"order_index":3,"created_at":"2026-02-26 20:16:00","updated_at":"2026-02-26 20:16:01","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":11,"task_id":7,"title":"ESCANEADO Y GUARDADO DE ARCHIVOS","description":"EL PERSONAL ADMINISTRATIVO UTILIZA EL METODO \"LEAN\". SE HARÁ DE FORMA CONTINUA DURANTE TODO EL AÑO DEDICANDO EN RAZÓN DE LA DISPONIBILIDAD DE TIEMPO 1 HORA DIARIA. EL EXPEDIENTE SE DESGLOSA, SE DIGITALIZA Y SE ARCHIVA.","stage_type":"sequential","status":"pendiente","start_date":"2026-03-02","end_date":"2026-12-31","deadline_days":null,"use_deadline":0,"progress":0,"order_index":1,"created_at":"2026-02-26 20:32:53","updated_at":"2026-02-26 20:35:10","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":12,"task_id":8,"title":"CREACION DEL SISTEMA PARA EMITIR RESOLUCION DIGITAL","description":"SE PUEDE AUTOMATIZAR LA GENERACION DE DOCUMENTOS DE RESOLUCIÓN MEDIANTE LA CREACION DE FORMULARIOS ESPECÍFICOS (NO MUNIFORMULARIOS) PARA QUE LAS MISMAS SEAN EXPORTADAS A DOCUMENTOS PDF CON FIRMAS CERTIFICADAS. SIMILAR AL SISTEMA GDE.","stage_type":"sequential","status":"pendiente","start_date":"2026-03-02","end_date":"2026-06-30","deadline_days":null,"use_deadline":0,"progress":0,"order_index":1,"created_at":"2026-02-26 20:42:08","updated_at":"2026-02-26 21:16:11","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":13,"task_id":9,"title":"CREACIÓN DE AGENDA DE TIEMPO DE INSPECCIÓN","description":"SE PRETENDE LOGRAR LA ATENCIÓN EN UN MÁXIMO DE 48 HS DE TOMADO CONOCIMIENTO DEL EXPEDIENTE.","stage_type":"sequential","status":"pendiente","start_date":null,"end_date":null,"deadline_days":60,"use_deadline":1,"progress":0,"order_index":1,"created_at":"2026-02-26 20:51:09","updated_at":"2026-02-26 20:51:10","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":14,"task_id":10,"title":"INSPECTOR TÉCNICO DE REMISES","description":"SE DEBE INCREMENTAR LA DISPONIBILIDAD DE AGENTES QUE ESTÉN AUTORIZADOS A REALIZAR LA INSPECCIÓN TÉCNICA, ACTUALMENTE CUENTO CON SOLO UNO.","stage_type":"sequential","status":"pendiente","start_date":null,"end_date":null,"deadline_days":90,"use_deadline":1,"progress":0,"order_index":1,"created_at":"2026-02-26 20:57:56","updated_at":"2026-02-26 20:57:57","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":15,"task_id":11,"title":"Análisis y Diseño Arquitectónico","description":"Objetivos: Definición de la lógica de funcionamiento, jerarquías, flujos de mando y visibilidad selectiva. Diseño del modelo relacional de datos y relevamiento del organigrama institucional.","stage_type":"sequential","status":"completada","start_date":"2026-03-01","end_date":"2026-03-16","deadline_days":null,"use_deadline":0,"progress":100,"order_index":1,"created_at":"2026-02-26 22:19:59","updated_at":"2026-02-26 22:37:43","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":16,"task_id":11,"title":"Creación del Motor de Base de Datos MySQL","description":"Objetivos: Configuración del entorno de laboratorio local (XAMPP). Creación de la base de datos central. Programación de las tablas principales: Áreas (ya ejecutada), Usuarios, Roles y Tareas, estableciendo las claves foráneas para la trazabilidad incorruptible.","stage_type":"sequential","status":"pendiente","start_date":"2026-03-16","end_date":"2026-03-31","deadline_days":null,"use_deadline":0,"progress":50,"order_index":2,"created_at":"2026-02-26 22:21:26","updated_at":"2026-02-26 22:38:57","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":17,"task_id":11,"title":"Desarrollo Lógico y Programación Backend PHP","description":"Objetivos: Es el \"cerebro\" del sistema. Creación de la conexión a la base de datos, sistema de inicio de sesión (Login) seguro, y programación de las funciones vitales: crear, derivar, editar y finalizar tareas según los permisos de cada usuario.","stage_type":"sequential","status":"pendiente","start_date":"2026-04-01","end_date":"2026-04-30","deadline_days":null,"use_deadline":0,"progress":0,"order_index":3,"created_at":"2026-02-26 22:23:30","updated_at":"2026-02-26 22:23:30","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":18,"task_id":11,"title":"Diseño de Interfaz Visual - Frontend HTML/CSS (Paralela a php)","description":"Paralela. Mientras se codifica la lógica en PHP (Fase 3), se puede ir diseñando la parte visual al mismo tiempo.\nObjetivos: Desarrollo del panel de control interactivo. Creación de un entorno limpio, amigable y de rápida lectura para los inspectores y personal operativo, enfocado en alertas y prioridades.","stage_type":"parallel","status":"pendiente","start_date":"2026-04-15","end_date":"2026-05-11","deadline_days":null,"use_deadline":0,"progress":0,"order_index":4,"created_at":"2026-02-26 22:25:46","updated_at":"2026-02-26 22:25:46","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":19,"task_id":11,"title":"Auditoría, Pruebas de Flujo y Ajustes Locales (Sucesiva)","description":"Objetivos: Simulación de carga de trabajo real en localhost. Creación de tareas de prueba que viajen por el organigrama (ej. desde el Director hasta un inspector). Verificación del \"Libro de Pases\" y corrección de posibles errores (bugs) antes de salir a producción.","stage_type":"sequential","status":"pendiente","start_date":"2026-05-11","end_date":"2026-05-22","deadline_days":null,"use_deadline":0,"progress":0,"order_index":5,"created_at":"2026-02-26 22:27:12","updated_at":"2026-02-26 22:27:12","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":20,"task_id":11,"title":"Despliegue en Servidor e Implementación Oficial (paralela)","description":"Objetivos: Migración del sistema desde la computadora local hacia el Hosting definitivo con cPanel. Exportación e importación de la base de datos MySQL. Alta de los usuarios reales y puesta en marcha del sistema para uso oficial.","stage_type":"parallel","status":"pendiente","start_date":"2026-05-25","end_date":"2026-05-29","deadline_days":null,"use_deadline":0,"progress":0,"order_index":6,"created_at":"2026-02-26 22:29:03","updated_at":"2026-02-26 22:29:03","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":21,"task_id":12,"title":"FASE 1 - PLANIFICACIÓN GENERAL Y DOCUMENTAL","description":"En esta fase, la Agencia establece el marco jurídico y prepara las herramientas administrativas para que Inspección General pueda actuar.","stage_type":"sequential","status":"en_progreso","start_date":"2026-02-02","end_date":"2026-02-18","deadline_days":null,"use_deadline":0,"progress":100,"order_index":1,"created_at":"2026-02-27 07:47:32","updated_at":"2026-03-01 11:25:44","agent_id":7,"agent_name":"RICARDO FRANCO","agent_area_id":1},{"id":22,"task_id":12,"title":"FASE 2 CONFECCION DE DOCUMENTOS","description":"LA AGC DISEÑARA LOS MODELOS DE CÉDULAS DE NOTIFICACIONES PREVENTIVAS Y ENTREGARÁ A INSPECCION GENERAL LOS MISMOS PARA SU DISTRIBUCIÓN A COMERCIOS.","stage_type":"sequential","status":"en_progreso","start_date":"2026-02-02","end_date":"2026-02-18","deadline_days":null,"use_deadline":0,"progress":100,"order_index":2,"created_at":"2026-02-27 07:56:19","updated_at":"2026-03-01 11:25:55","agent_id":7,"agent_name":"RICARDO FRANCO","agent_area_id":1},{"id":23,"task_id":12,"title":"FASE 3 - MAPEO Y ZONAS DE RIESGO","description":"CORRESPONDE A INSPECCIÓN GENERAL REALIZAR EL PLAN DE RUTAS DE NOTIFICACIÓN, ZONAS COMERCIALES PRIORITARIAS, RUBROS, DONDE ES COMÚN LA VENTA.","stage_type":"sequential","status":"pendiente","start_date":"2026-02-28","end_date":"2026-03-06","deadline_days":null,"use_deadline":0,"progress":0,"order_index":3,"created_at":"2026-02-27 08:01:38","updated_at":"2026-03-01 11:26:14","agent_id":9,"agent_name":"SANDRA SEJAS","agent_area_id":2},{"id":24,"task_id":12,"title":"IMPLEMENTACION","description":"REFIERE AL CUMPLIMIENTO DE LAS NOTIFICACIONES, FISCALIZACIÓN Y ACTUACIONES ADMINISTRATIVAS SANCIONATORIAS. SE DESARROLLARÁN EN FORMA PARALELA LUEGO DE LA NOTIFICACIÓN PREVIA.","stage_type":"sequential","status":"pendiente","start_date":"2026-03-20","end_date":"2026-08-31","deadline_days":null,"use_deadline":0,"progress":0,"order_index":4,"created_at":"2026-02-27 08:05:12","updated_at":"2026-02-27 08:05:13","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":25,"task_id":12,"title":"RETROALIMENTACION","description":"EVALUACIÓN DEL RESULTADO DE LAS INTERVENCIONES. CORRECCIONES NECESARIAS, MEJORAS. SUGERENCIAS DE PERSONAL DE CAMPO","stage_type":"sequential","status":"pendiente","start_date":"2026-08-03","end_date":"2026-08-04","deadline_days":null,"use_deadline":0,"progress":0,"order_index":5,"created_at":"2026-02-27 08:06:30","updated_at":"2026-02-27 08:06:30","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":26,"task_id":13,"title":"RELEVAMIENTOS","description":"SE REALIZARÁ UN RECORRIDO POR TODO EL EJIDO URBANO A EFECTOS DE DETECTAR LOTES FALTOS DE HIGIENE.","stage_type":"sequential","status":"pendiente","start_date":"2026-01-05","end_date":"2026-02-15","deadline_days":null,"use_deadline":0,"progress":51,"order_index":1,"created_at":"2026-02-27 08:15:42","updated_at":"2026-02-27 10:41:51","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":27,"task_id":14,"title":"INSTALACIONES DEL CORRALÓN","description":"SE PRETENDE MEJORAR LAS INSTALACIONES DEL CORRALON DONDE SE REMITEN LOS EQUINOS SITO EN CALLE 68 Y 47. EL MISMO ACTUALMENTE NO POSEE ELEMENTOS PERIMETRALES ADECUADOS QUE BRINDEN SEGURIDAD.","stage_type":"sequential","status":"pendiente","start_date":"2026-02-28","end_date":"2026-03-31","deadline_days":null,"use_deadline":0,"progress":15,"order_index":1,"created_at":"2026-02-27 08:29:32","updated_at":"2026-02-27 12:11:38","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":28,"task_id":14,"title":"MOVILIDAD - VEHÍCULO Y TRAILER","description":"NO CONTAMOS CON MOVILIDAD PROPIA. LAS CARACTERÍSTICAS DEL TRAILER Y SU PESO HACEN QUE LA CAMIONETA DE INSPECCIÓN NO PUEDA REALIZAR EL TRASLADO. SE PRETENDE COORDINAR CON EL SERVICIOS PÚBLICOS LAS RECORRIDAS PARA PODER RETENER ANIMALES EN LA VÍA PUBLICA Y REMITIRLOS AL CORRALON","stage_type":"sequential","status":"pendiente","start_date":"2026-02-02","end_date":"2026-12-31","deadline_days":null,"use_deadline":0,"progress":7,"order_index":2,"created_at":"2026-02-27 08:35:38","updated_at":"2026-02-27 08:35:38","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":29,"task_id":14,"title":"RETENCIONES","description":"ANUALMENTE EL PROMEDIO DE RETENCIÓN ES DE 120 EQUINOS. SACADOS SUPERA AMPLIAMENTE A LAS RETENCIONES, PODEMOS MENCIONAR QUE SUPERA EN 5 O 6 VECES LA CANTIDAD DE RETENIDOS.. POR ELLO EN ESTE 2026 PARA LOGRAR UNA MAYOR SEGURIDAD Y CREAR CONCIENCIAS ES NECESARIO INCREMENTAR LA CANTIDAD DE RETENCIONES.","stage_type":"parallel","status":"en_progreso","start_date":"2026-02-02","end_date":"2026-12-31","deadline_days":null,"use_deadline":0,"progress":0,"order_index":3,"created_at":"2026-02-27 08:50:29","updated_at":"2026-02-27 08:50:30","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":30,"task_id":14,"title":"INSUMOS CORRALON","description":"INCLUYE, ALIMENTOS PARA LOS ANIMALES RETENIDOS. UNIFORMES Y REFRIGERIO INSPECTORES. ","stage_type":"sequential","status":"pendiente","start_date":"2026-02-02","end_date":"2026-12-27","deadline_days":null,"use_deadline":0,"progress":0,"order_index":4,"created_at":"2026-02-27 08:52:20","updated_at":"2026-02-27 08:52:20","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":31,"task_id":15,"title":"ESTACIONAMIENTO: CONTROL EN EVENTOS","description":"EN EVENTOS MASIVOS SE REALIZARAN CONTROLES PREVENTIVOS PARA EVITAR EL COBRO DE ESTACIONAMIENTO EN LA VÍA PÚBLICA E INCREMENTAR LA SEGURIDAD DE LOS ASISTENTES.","stage_type":"parallel","status":"en_progreso","start_date":"2026-01-01","end_date":"2026-12-31","deadline_days":null,"use_deadline":0,"progress":12,"order_index":1,"created_at":"2026-02-27 09:08:32","updated_at":"2026-02-27 09:08:33","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":32,"task_id":16,"title":"DECIBELIMETRO.","description":"CALIBRACIÓN Y REPARACIÓN.","stage_type":"sequential","status":"pendiente","start_date":"2026-02-03","end_date":"2026-02-26","deadline_days":null,"use_deadline":0,"progress":75,"order_index":1,"created_at":"2026-02-27 09:13:47","updated_at":"2026-02-27 09:13:47","agent_id":null,"agent_name":null,"agent_area_id":null},{"id":33,"task_id":16,"title":"CAMIONETA OFICIAL","description":"SERVICIOS QUE SE LE DEBEN REALIZAR","stage_type":"sequential","status":"pendiente","start_date":"2026-02-27","end_date":"2026-12-31","deadline_days":null,"use_deadline":0,"progress":67,"order_index":2,"created_at":"2026-02-27 09:16:28","updated_at":"2026-02-27 09:16:28","agent_id":null,"agent_name":null,"agent_area_id":null}],"metrics":[{"id":3,"stage_id":8,"name":"PRUEBA DEL SISTEMA","unit":"","target_value":1.0,"current_value":0.0,"order_index":1,"created_at":"2026-02-26 20:05:46","updated_at":"2026-02-26 20:05:46","stage_title":"IMPLEMENTACIÓN DEL CHATBOT","task_id":6},{"id":4,"stage_id":8,"name":"CORRECION DE ERRORES","unit":"","target_value":3.0,"current_value":0.0,"order_index":2,"created_at":"2026-02-26 20:05:46","updated_at":"2026-02-26 20:05:46","stage_title":"IMPLEMENTACIÓN DEL CHATBOT","task_id":6},{"id":5,"stage_id":9,"name":"SOLICITAR EQUIPOS NUEVOS","unit":"","target_value":2.0,"current_value":0.0,"order_index":1,"created_at":"2026-02-26 20:10:16","updated_at":"2026-02-26 20:10:16","stage_title":"INCORPORAR EQUIPOS DE TELEFONIA","task_id":6},{"id":6,"stage_id":10,"name":"Difusión a través de Redes Sociales 2 veces al mes.","unit":"","target_value":24.0,"current_value":0.0,"order_index":1,"created_at":"2026-02-26 20:16:00","updated_at":"2026-02-26 20:16:00","stage_title":"HABILITACIÓN ONLINE: ENTREGA DE QR CON LINK","task_id":6},{"id":7,"stage_id":11,"name":"DESGLOSE DE EXPEDIENTES","unit":"HORAS","target_value":100.0,"current_value":0.0,"order_index":1,"created_at":"2026-02-26 20:32:53","updated_at":"2026-02-26 20:35:10","stage_title":"ESCANEADO Y GUARDADO DE ARCHIVOS","task_id":7},{"id":8,"stage_id":11,"name":"DIGITALIZACIÓN","unit":"","target_value":100.0,"current_value":0.0,"order_index":2,"created_at":"2026-02-26 20:32:53","updated_at":"2026-02-26 20:35:10","stage_title":"ESCANEADO Y GUARDADO DE ARCHIVOS","task_id":7},{"id":9,"stage_id":12,"name":"CONTACTAR CON PERSONAL QUE PUEDA REALIZAR EL DESARROLLO DEL SISTEMA","unit":"","target_value":1.0,"current_value":0.0,"order_index":1,"created_at":"2026-02-26 20:42:09","updated_at":"2026-02-26 21:16:11","stage_title":"CREACION DEL SISTEMA PARA EMITIR RESOLUCION DIGITAL","task_id":8},{"id":10,"stage_id":12,"name":"CREACION DEL SISTEMA","unit":"","target_value":1.0,"current_value":0.0,"order_index":2,"created_at":"2026-02-26 20:42:09","updated_at":"2026-02-26 20:42:09","stage_title":"CREACION DEL SISTEMA PARA EMITIR RESOLUCION DIGITAL","task_id":8},{"id":11,"stage_id":12,"name":"PRUEBA Y CORRECCION DE ERRORES","unit":"","target_value":3.0,"current_value":0.0,"order_index":3,"created_at":"2026-02-26 20:42:09","updated_at":"2026-02-26 20:42:09","stage_title":"CREACION DEL SISTEMA PARA EMITIR RESOLUCION DIGITAL","task_id":8},{"id":12,"stage_id":12,"name":"PUESTA EN MARCHA EN EL SEGUNDO SEMESTRE","unit":"","target_value":1.0,"current_value":0.0,"order_index":4,"created_at":"2026-02-26 20:42:09","updated_at":"2026-02-26 20:42:09","stage_title":"CREACION DEL SISTEMA PARA EMITIR RESOLUCION DIGITAL","task_id":8},{"id":13,"stage_id":13,"name":"CREACION DE SISTEMA DE AGENDA DE INSPECCIONES EDILICIAS","unit":"","target_value":1.0,"current_value":0.0,"order_index":1,"created_at":"2026-02-26 20:51:09","updated_at":"2026-02-26 20:51:09","stage_title":"CREACIÓN DE AGENDA DE TIEMPO DE INSPECCIÓN","task_id":9},{"id":14,"stage_id":13,"name":"GENERACION DEL DOCUMENTO DE INSPECCIÓN DIGITAL CON FIRMA CERTIFICADA","unit":"","target_value":1.0,"current_value":0.0,"order_index":2,"created_at":"2026-02-26 20:51:10","updated_at":"2026-02-26 20:51:10","stage_title":"CREACIÓN DE AGENDA DE TIEMPO DE INSPECCIÓN","task_id":9},{"id":15,"stage_id":14,"name":"INCREMENTAR AGENTES","unit":"","target_value":2.0,"current_value":0.0,"order_index":1,"created_at":"2026-02-26 20:57:57","updated_at":"2026-02-26 20:57:57","stage_title":"INSPECTOR TÉCNICO DE REMISES","task_id":10},{"id":16,"stage_id":14,"name":"AMPLIAR HORARIOS","unit":"","target_value":1.0,"current_value":0.0,"order_index":2,"created_at":"2026-02-26 20:57:57","updated_at":"2026-02-26 20:57:57","stage_title":"INSPECTOR TÉCNICO DE REMISES","task_id":10},{"id":17,"stage_id":15,"name":"DISEÑO DE LA ESTRUCTURA LÓGICA","unit":"","target_value":1.0,"current_value":1.0,"order_index":1,"created_at":"2026-02-26 22:37:36","updated_at":"2026-02-26 22:37:43","stage_title":"Análisis y Diseño Arquitectónico","task_id":11},{"id":18,"stage_id":16,"name":"CREAR TABLA DE AREAS","unit":"","target_value":1.0,"current_value":1.0,"order_index":1,"created_at":"2026-02-26 22:38:48","updated_at":"2026-02-26 22:38:57","stage_title":"Creación del Motor de Base de Datos MySQL","task_id":11},{"id":19,"stage_id":16,"name":"CREAR TABLA DE PERSONAL VINCULADOS CON AREAS","unit":"","target_value":1.0,"current_value":0.0,"order_index":2,"created_at":"2026-02-26 22:38:48","updated_at":"2026-02-26 22:38:48","stage_title":"Creación del Motor de Base de Datos MySQL","task_id":11},{"id":20,"stage_id":21,"name":"Ley Nacional 26.567, Ley Provincial 2.287. Ordenanza 8213/18","unit":"","target_value":3.0,"current_value":3.0,"order_index":1,"created_at":"2026-02-27 07:52:19","updated_at":"2026-03-01 11:25:44","stage_title":"FASE 1 - PLANIFICACIÓN GENERAL Y DOCUMENTAL","task_id":12},{"id":21,"stage_id":22,"name":"CEDULAS DE NOTIFICACION","unit":"","target_value":2.0,"current_value":2.0,"order_index":1,"created_at":"2026-02-27 07:56:19","updated_at":"2026-03-01 11:25:55","stage_title":"FASE 2 CONFECCION DE DOCUMENTOS","task_id":12},{"id":22,"stage_id":23,"name":"RUTAS","unit":"","target_value":1.0,"current_value":0.0,"order_index":1,"created_at":"2026-02-27 08:01:39","updated_at":"2026-03-01 11:26:14","stage_title":"FASE 3 - MAPEO Y ZONAS DE RIESGO","task_id":12},{"id":23,"stage_id":24,"name":"NOTIFICACIONES PREVIAS","unit":"","target_value":100.0,"current_value":0.0,"order_index":1,"created_at":"2026-02-27 08:05:12","updated_at":"2026-02-27 08:05:12","stage_title":"IMPLEMENTACION","task_id":12},{"id":24,"stage_id":24,"name":"INSPECCIONES - 2 SEMANALES","unit":"","target_value":30.0,"current_value":0.0,"order_index":2,"created_at":"2026-02-27 08:05:13","updated_at":"2026-02-27 08:05:13","stage_title":"IMPLEMENTACION","task_id":12},{"id":25,"stage_id":26,"name":"RELEVAMIENTOS","unit":"","target_value":800.0,"current_value":409.0,"order_index":1,"created_at":"2026-02-27 08:16:12","updated_at":"2026-02-27 10:41:51","stage_title":"RELEVAMIENTOS","task_id":13},{"id":26,"stage_id":27,"name":"CERCO PERIMETRAL ALAMBRADO, POSTES Y PALETS","unit":"METROS","target_value":60.0,"current_value":10.0,"order_index":1,"created_at":"2026-02-27 08:29:33","updated_at":"2026-02-27 12:11:38","stage_title":"INSTALACIONES DEL CORRALÓN","task_id":14},{"id":27,"stage_id":27,"name":"LUMINARIAS - REFLECTORES Y AMPLIACIÓN","unit":"LUMINARIAS","target_value":3.0,"current_value":0.0,"order_index":2,"created_at":"2026-02-27 08:29:33","updated_at":"2026-02-27 08:29:33","stage_title":"INSTALACIONES DEL CORRALÓN","task_id":14},{"id":28,"stage_id":27,"name":"PINTURA DEL EDIFICIO","unit":"PINTURA","target_value":1.0,"current_value":0.0,"order_index":3,"created_at":"2026-02-27 08:29:33","updated_at":"2026-02-27 08:29:33","stage_title":"INSTALACIONES DEL CORRALÓN","task_id":14},{"id":29,"stage_id":27,"name":"CARTELERÍA IDENTIFICATORIA EN EL PREDIO","unit":"CARTEL","target_value":1.0,"current_value":0.0,"order_index":4,"created_at":"2026-02-27 08:29:33","updated_at":"2026-02-27 08:29:33","stage_title":"INSTALACIONES DEL CORRALÓN","task_id":14},{"id":30,"stage_id":28,"name":"COORDINAR REGULARMENTE CON SERVICIOS LOS RECORRIDOS 1 X SEMANA","unit":"RECORRIDOS","target_value":42.0,"current_value":3.0,"order_index":1,"created_at":"2026-02-27 08:35:38","updated_at":"2026-02-27 08:35:38","stage_title":"MOVILIDAD - VEHÍCULO Y TRAILER","task_id":14},{"id":31,"stage_id":29,"name":"ATENCION DE DENUNCIAS: RECEPCION, REGISTRO Y RESULTADO","unit":"","target_value":900.0,"current_value":0.0,"order_index":1,"created_at":"2026-02-27 08:50:29","updated_at":"2026-02-27 08:50:29","stage_title":"RETENCIONES","task_id":14},{"id":32,"stage_id":29,"name":"REALIZAR RECORRIDOS DIARIOS POR TURNO 3 X DIA","unit":"","target_value":1200.0,"current_value":0.0,"order_index":2,"created_at":"2026-02-27 08:50:29","updated_at":"2026-02-27 08:50:29","stage_title":"RETENCIONES","task_id":14},{"id":33,"stage_id":29,"name":"RETENCIONES. SE PRETENDE MINIMO 1 X DIA (DEPENDE DEL RETIRO DE LOS ANTERIORES)","unit":"RETENCIONES","target_value":300.0,"current_value":0.0,"order_index":3,"created_at":"2026-02-27 08:50:30","updated_at":"2026-02-27 08:50:30","stage_title":"RETENCIONES","task_id":14},{"id":34,"stage_id":31,"name":"FESTIVAL DE JAUKANIGAS (ENERO 2026)","unit":"EVENTO","target_value":3.0,"current_value":3.0,"order_index":1,"created_at":"2026-02-27 09:08:32","updated_at":"2026-02-27 09:08:32","stage_title":"ESTACIONAMIENTO: CONTROL EN EVENTOS","task_id":15},{"id":35,"stage_id":31,"name":"CORSOS 2026 / 3 NOCHES","unit":"","target_value":3.0,"current_value":3.0,"order_index":2,"created_at":"2026-02-27 09:08:32","updated_at":"2026-02-27 09:08:32","stage_title":"ESTACIONAMIENTO: CONTROL EN EVENTOS","task_id":15},{"id":36,"stage_id":31,"name":"DIARIOS EN ZONAS COMERCIALES / HORARIO NOCTURNO","unit":"","target_value":300.0,"current_value":30.0,"order_index":3,"created_at":"2026-02-27 09:08:33","updated_at":"2026-02-27 09:08:33","stage_title":"ESTACIONAMIENTO: CONTROL EN EVENTOS","task_id":15},{"id":37,"stage_id":32,"name":"ENVIAR DECIBELIMETRO A LABORATORIO BALDOR PARA CALIBRACIÓN Y REPARACIÓN","unit":"ENVIO Y PAGO","target_value":2.0,"current_value":2.0,"order_index":1,"created_at":"2026-02-27 09:13:47","updated_at":"2026-02-27 09:13:47","stage_title":"DECIBELIMETRO.","task_id":16},{"id":38,"stage_id":32,"name":"RECEPCION DEL EQUIPO CON ELEMENTO FALTANTE (FILTRO DE MICROFONO) REALIZAR RECLAMO","unit":"RECLAMO Y SEGUIMIENTO","target_value":2.0,"current_value":1.0,"order_index":2,"created_at":"2026-02-27 09:13:47","updated_at":"2026-02-27 09:13:47","stage_title":"DECIBELIMETRO.","task_id":16},{"id":39,"stage_id":33,"name":"REPARACION DE LLAVE DE ENCENDIDO (ENERO 2026)","unit":"REPARACION DE LLAVE","target_value":1.0,"current_value":1.0,"order_index":1,"created_at":"2026-02-27 09:16:28","updated_at":"2026-02-27 09:16:28","stage_title":"CAMIONETA OFICIAL","task_id":16},{"id":40,"stage_id":33,"name":"CAMBIO DE BATERIA (ENERO 2026)","unit":"BATERIA NUEVA","target_value":1.0,"current_value":1.0,"order_index":2,"created_at":"2026-02-27 09:16:28","updated_at":"2026-02-27 09:16:28","stage_title":"CAMIONETA OFICIAL","task_id":16},{"id":41,"stage_id":33,"name":"CONSEGUIR CUBIERTA DE AUXILIO","unit":"CUBIERTA DE AUXILIO","target_value":1.0,"current_value":0.0,"order_index":3,"created_at":"2026-02-27 09:16:28","updated_at":"2026-02-27 09:16:28","stage_title":"CAMIONETA OFICIAL","task_id":16}],"links":[{"id":1,"stage_id":21,"title":"Ley Nacional","url":"https://www.argentina.gob.ar/normativa/nacional/ley-26567-161721/texto","created_at":"2026-02-27 07:52:20","task_id":12},{"id":2,"stage_id":21,"title":"Ley Provincial","url":"https://www.santafe.gov.ar/index.php/web/content/download/127587/631246/file/ley%202287.pdf","created_at":"2026-02-27 07:52:20","task_id":12},{"id":3,"stage_id":21,"title":"Ordenanza Local","url":"https://www.concejoreconquista.gob.ar/normativas_nro.php?nro_ord=8213&tipo_doc=1","created_at":"2026-02-27 07:52:20","task_id":12},{"id":4,"stage_id":26,"title":"ESTADISTICAS","url":"https://airerqta-star.github.io/higiene_urbana_estad-stica/","created_at":"2026-02-27 10:41:52","task_id":13}],"attachments":[{"id":1,"stage_id":22,"original_name":"notificacion_clasica.doc","stored_name":"d534ef5de35d4addb2701675f12fddd8.doc","file_size":62464,"mime_type":"application/msword","created_at":"2026-02-27 07:58:22","task_id":12},{"id":2,"stage_id":22,"original_name":"MEDICAMENTOS_Cedula_de_Notificacion_1.pdf","stored_name":"fd3a9b7f998a4ae08a8fc765251778c5.pdf","file_size":1442432,"mime_type":"application/pdf","created_at":"2026-02-27 08:10:38","task_id":12}],"history":[{"id":57,"entity_type":"stage","entity_id":33,"action":"created","details":"[Tarea 16] Etapa creada: CAMIONETA OFICIAL","user_note":"","changed_at":"2026-02-27 09:16:28"},{"id":56,"entity_type":"stage","entity_id":32,"action":"created","details":"[Tarea 16] Etapa creada: DECIBELIMETRO.","user_note":"","changed_at":"2026-02-27 09:13:47"},{"id":55,"entity_type":"task","entity_id":16,"action":"created","details":"Tarea creada: MANTENIMIENTO DE EQUIPOS Y VEHÍCULO DE INSPECCION GENERAL","user_note":"","changed_at":"2026-02-27 09:11:11"},{"id":54,"entity_type":"stage","entity_id":31,"action":"created","details":"[Tarea 15] Etapa creada: ESTACIONAMIENTO: CONTROL EN EVENTOS","user_note":"","changed_at":"2026-02-27 09:08:32"},{"id":53,"entity_type":"task","entity_id":15,"action":"created","details":"Tarea creada: CONTROL CUIDA COCHES","user_note":"","changed_at":"2026-02-27 09:04:06"},{"id":52,"entity_type":"stage","entity_id":30,"action":"created","details":"[Tarea 14] Etapa creada: INSUMOS CORRALON","user_note":"","changed_at":"2026-02-27 08:52:20"},{"id":51,"entity_type":"stage","entity_id":29,"action":"created","details":"[Tarea 14] Etapa creada: RETENCIONES","user_note":"","changed_at":"2026-02-27 08:50:29"},{"id":50,"entity_type":"stage","entity_id":28,"action":"created","details":"[Tarea 14] Etapa creada: MOVILIDAD - VEHÍCULO Y TRAILER","user_note":"","changed_at":"2026-02-27 08:35:38"},{"id":49,"entity_type":"stage","entity_id":27,"action":"created","details":"[Tarea 14] Etapa creada: INSTALACIONES DEL CORRALÓN","user_note":"","changed_at":"2026-02-27 08:29:32"},{"id":48,"entity_type":"task","entity_id":14,"action":"created","details":"Tarea creada: CONTROL DE EQUINOS","user_note":"","changed_at":"2026-02-27 08:21:32"},{"id":47,"entity_type":"stage","entity_id":26,"action":"created","details":"[Tarea 13] Etapa creada: RELEVAMIENTOS","user_note":"","changed_at":"2026-02-27 08:15:42"},{"id":46,"entity_type":"task","entity_id":13,"action":"created","details":"Tarea creada: CONTROL DE MALEZAS","user_note":"","changed_at":"2026-02-27 08:13:14"},{"id":45,"entity_type":"stage","entity_id":25,"action":"created","details":"[Tarea 12] Etapa creada: RETROALIMENTACION","user_note":"","changed_at":"2026-02-27 08:06:30"},{"id":44,"entity_type":"stage","entity_id":24,"action":"created","details":"[Tarea 12] Etapa creada: IMPLEMENTACION","user_note":"","changed_at":"2026-02-27 08:05:12"},{"id":43,"entity_type":"stage","entity_id":23,"action":"created","details":"[Tarea 12] Etapa creada: FASE 3 - MAPEO Y ZONAS DE RIESGO","user_note":"","changed_at":"2026-02-27 08:01:38"},{"id":42,"entity_type":"stage","entity_id":22,"action":"updated","details":"title: CONFECCION DE DOCUMENTOS → FASE 2 CONFECCION DE DOCUMENTOS","user_note":"","changed_at":"2026-02-27 07:58:55"},{"id":41,"entity_type":"stage","entity_id":22,"action":"created","details":"[Tarea 12] Etapa creada: CONFECCION DE DOCUMENTOS","user_note":"","changed_at":"2026-02-27 07:56:19"},{"id":40,"entity_type":"stage","entity_id":21,"action":"created","details":"[Tarea 12] Etapa creada: FASE 1 - PLANIFICACIÓN GENERAL Y DOCUMENTAL","user_note":"","changed_at":"2026-02-27 07:47:32"},{"id":39,"entity_type":"task","entity_id":12,"action":"created","details":"Tarea creada: AGC - CONTROL DE VENTA DE MEDICAMENTOS","user_note":"","changed_at":"2026-02-27 07:37:14"},{"id":38,"entity_type":"stage","entity_id":15,"action":"updated","details":"status: en_progreso → completada","user_note":"","changed_at":"2026-02-26 22:36:07"},{"id":37,"entity_type":"task","entity_id":11,"action":"updated","details":"title: AGC - SISTEMA DE PANEL DE TAREAS → AGC - CREACION SISTEMA DE PANEL DE TAREAS","user_note":"","changed_at":"2026-02-26 22:30:16"},{"id":36,"entity_type":"stage","entity_id":20,"action":"created","details":"[Tarea 11] Etapa creada: Despliegue en Servidor e Implementación Oficial (paralela)","user_note":"","changed_at":"2026-02-26 22:29:03"},{"id":35,"entity_type":"stage","entity_id":19,"action":"created","details":"[Tarea 11] Etapa creada: Auditoría, Pruebas de Flujo y Ajustes Locales (Sucesiva)","user_note":"","changed_at":"2026-02-26 22:27:12"},{"id":34,"entity_type":"stage","entity_id":18,"action":"created","details":"[Tarea 11] Etapa creada: Diseño de Interfaz Visual - Frontend HTML/CSS (Paralela a php)","user_note":"","changed_at":"2026-02-26 22:25:46"},{"id":33,"entity_type":"stage","entity_id":17,"action":"created","details":"[Tarea 11] Etapa creada: Desarrollo Lógico y Programación Backend PHP","user_note":"","changed_at":"2026-02-26 22:23:30"},{"id":32,"entity_type":"stage","entity_id":16,"action":"created","details":"[Tarea 11] Etapa creada: Creación del Motor de Base de Datos MySQL","user_note":"","changed_at":"2026-02-26 22:21:26"},{"id":31,"entity_type":"stage","entity_id":15,"action":"created","details":"[Tarea 11] Etapa creada: Análisis y Diseño Arquitectónico","user_note":"","changed_at":"2026-02-26 22:19:59"},{"id":30,"entity_type":"task","entity_id":11,"action":"created","details":"Tarea creada: AGC - SISTEMA DE PANEL DE TAREAS","user_note":"","changed_at":"2026-02-26 22:18:27"},{"id":29,"entity_type":"task","entity_id":2,"action":"deleted","details":"Tarea eliminada","user_note":"","changed_at":"2026-02-26 21:51:27"},{"id":28,"entity_type":"task","entity_id":5,"action":"deleted","details":"Tarea eliminada","user_note":"","changed_at":"2026-02-26 21:50:53"},{"id":27,"entity_type":"task","entity_id":4,"action":"deleted","details":"Tarea eliminada","user_note":"","changed_at":"2026-02-26 21:50:46"},{"id":26,"entity_type":"task","entity_id":3,"action":"deleted","details":"Tarea eliminada","user_note":"","changed_at":"2026-02-26 21:50:32"},{"id":25,"entity_type":"task","entity_id":1,"action":"deleted","details":"Tarea eliminada","user_note":"","changed_at":"2026-02-26 21:50:10"},{"id":24,"entity_type":"stage","entity_id":14,"action":"created","details":"[Tarea 10] Etapa creada: INSPECTOR TÉCNICO DE REMISES","user_note":"","changed_at":"2026-02-26 20:57:56"},{"id":23,"entity_type":"task","entity_id":10,"action":"created","details":"Tarea creada: HABILITACIONES - REMISES","user_note":"","changed_at":"2026-02-26 20:53:55"},{"id":22,"entity_type":"stage","entity_id":13,"action":"created","details":"[Tarea 9] Etapa creada: CREACIÓN DE AGENDA DE TIEMPO DE INSPECCIÓN","user_note":"","changed_at":"2026-02-26 20:51:09"},{"id":21,"entity_type":"task","entity_id":9,"action":"created","details":"Tarea creada: HABILITACIONES - OPTIMIZAR INSPECCIONES EDILICIAS","user_note":"","changed_at":"2026-02-26 20:48:27"},{"id":20,"entity_type":"stage","entity_id":12,"action":"created","details":"[Tarea 8] Etapa creada: CREACION DEL SISTEMA PARA EMITIR RESOLUCION DIGITAL","user_note":"","changed_at":"2026-02-26 20:42:08"},{"id":19,"entity_type":"task","entity_id":8,"action":"created","details":"Tarea creada: HABILITACIONES - RESOLUCIONES DE HABILITACION","user_note":"","changed_at":"2026-02-26 20:38:22"},{"id":18,"entity_type":"stage","entity_id":11,"action":"created","details":"[Tarea 7] Etapa creada: ESCANEADO Y GUARDADO DE ARCHIVOS","user_note":"","changed_at":"2026-02-26 20:32:53"},{"id":17,"entity_type":"task","entity_id":7,"action":"created","details":"Tarea creada: HABILITACIONES - DESPAPELIZACION","user_note":"","changed_at":"2026-02-26 20:28:50"},{"id":16,"entity_type":"stage","entity_id":10,"action":"created","details":"[Tarea 6] Etapa creada: HABILITACIÓN ONLINE: ENTREGA DE QR CON LINK","user_note":"","changed_at":"2026-02-26 20:16:00"},{"id":15,"entity_type":"stage","entity_id":9,"action":"created","details":"[Tarea 6] Etapa creada: INCORPORAR EQUIPOS DE TELEFONIA","user_note":"","changed_at":"2026-02-26 20:08:36"},{"id":14,"entity_type":"stage","entity_id":8,"action":"created","details":"[Tarea 6] Etapa creada: IMPLEMENTACIÓN DEL CHATBOT","user_note":"","changed_at":"2026-02-26 20:05:45"},{"id":13,"entity_type":"task","entity_id":6,"action":"created","details":"Tarea creada: HABILITACIONES - ATENCIÓN AL PUBLICO","user_note":"","changed_at":"2026-02-26 20:02:22"},{"id":1,"entity_type":"task","entity_id":1,"action":"created","details":"Tarea creada: Campaña de Higiene Urbana Q1","user_note":"","changed_at":"2026-02-19 23:40:28"},{"id":2,"entity_type":"stage","entity_id":1,"action":"created","details":"[Tarea 1] Etapa creada: Relevamiento de propiedades","user_note":"","changed_at":"2026-02-19 23:40:28"},{"id":3,"entity_type":"stage","entity_id":2,"action":"created","details":"[Tarea 1] Etapa creada: Notificaciones administrativas","user_note":"","changed_at":"2026-02-19 23:40:28"},{"id":4,"entity_type":"stage","entity_id":3,"action":"created","details":"[Tarea 1] Etapa creada: Seguimiento y clausuras","user_note":"","changed_at":"2026-02-19 23:40:28"},{"id":5,"entity_type":"task","entity_id":2,"action":"created","details":"Tarea creada: Sistema Digital de Habilitaciones","user_note":"","changed_at":"2026-02-19 23:40:28"}],"stats":{"total":11,"completadas":0,"en_progreso":6,"pendientes":5,"avg_progress":18.6}}
+;
+
+// ═══════════════════════════════════════════════════════════════════
+// CONSTANTS
+// ═══════════════════════════════════════════════════════════════════
+const PRIORITY_LABELS = {alta:'ALTA', media:'MEDIA', baja:'BAJA'};
+const STATUS_LABELS = {pendiente:'Pendiente', en_progreso:'En Progreso', completada:'Completada', pausada:'Pausada', cancelada:'Cancelada'};
+const AREA_COLORS = {};
+RAW_DATA.areas.forEach(a => AREA_COLORS[a.name] = a.color);
+
+function fmtDate(d) {
+  if (!d) return '—';
+  try { const p=d.split('-'); return `${p[2]}/${p[1]}/${p[0]}`; } catch(e) { return d; }
+}
+function fmtNum(v) {
+  const f = parseFloat(v);
+  return f === Math.floor(f) ? Math.floor(f).toString() : f.toFixed(1);
+}
+function getProgressColor(p) {
+  if (p >= 100) return 'var(--success)';
+  if (p > 50) return 'var(--accent)';
+  if (p > 0) return 'var(--warning)';
+  return 'var(--text-muted)';
+}
+
+// Enrich tasks with stages and metrics
+const TASKS = RAW_DATA.tasks.map(t => {
+  t.stages = RAW_DATA.stages.filter(s => s.task_id === t.id).map(s => {
+    s.metrics = RAW_DATA.metrics.filter(m => m.stage_id === s.id);
+    s.links = RAW_DATA.links.filter(l => l.stage_id === s.id);
+    return s;
+  });
+  return t;
+});
+
+// ═══════════════════════════════════════════════════════════════════
+// THEME
+// ═══════════════════════════════════════════════════════════════════
+function setTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  localStorage.setItem('agc-theme', t);
+  document.getElementById('btnDark').classList.toggle('active', t==='dark');
+  document.getElementById('btnLight').classList.toggle('active', t==='light');
+}
+(function initTheme(){
+  const saved = localStorage.getItem('agc-theme') || 'dark';
+  setTheme(saved);
+})();
+
+// ═══════════════════════════════════════════════════════════════════
+// VIEW TOGGLE
+// ═══════════════════════════════════════════════════════════════════
+let currentView = 'grid';
+function setView(v) {
+  currentView = v;
+  document.getElementById('viewGrid').classList.toggle('active', v==='grid');
+  document.getElementById('viewTable').classList.toggle('active', v==='table');
+  document.getElementById('tasksGrid').style.display = v==='grid' ? '' : 'none';
+  document.getElementById('tasksTableWrap').style.display = v==='table' ? '' : 'none';
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// EXPORT (print in light mode)
+// ═══════════════════════════════════════════════════════════════════
+function exportLight() {
+  const prev = document.documentElement.getAttribute('data-theme');
+  setTheme('light');
+  setTimeout(() => { window.print(); setTheme(prev); }, 200);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// FILTERS
+// ═══════════════════════════════════════════════════════════════════
+function populateFilters() {
+  const areaSelect = document.getElementById('fArea');
+  RAW_DATA.areas.forEach(a => {
+    const o = document.createElement('option');
+    o.value = a.name; o.textContent = a.name;
+    areaSelect.appendChild(o);
+  });
+  const agentSelect = document.getElementById('fAgent');
+  const agents = [...new Set(TASKS.map(t=>t.agent_name).filter(Boolean))].sort();
+  agents.forEach(a => {
+    const o = document.createElement('option');
+    o.value = a; o.textContent = a;
+    agentSelect.appendChild(o);
+  });
+}
+
+function getFilters() {
+  return {
+    area: document.getElementById('fArea').value,
+    status: document.getElementById('fStatus').value,
+    priority: document.getElementById('fPriority').value,
+    agent: document.getElementById('fAgent').value,
+    dateFrom: document.getElementById('fDateFrom').value,
+    dateTo: document.getElementById('fDateTo').value,
+    search: document.getElementById('fSearch').value.toLowerCase().trim(),
+    sort: document.getElementById('sortSelect').value
+  };
+}
+
+function filterTasks() {
+  const f = getFilters();
+  let filtered = [...TASKS];
+  if (f.area) filtered = filtered.filter(t => t.area_name === f.area);
+  if (f.status) filtered = filtered.filter(t => t.status === f.status);
+  if (f.priority) filtered = filtered.filter(t => t.priority === f.priority);
+  if (f.agent) filtered = filtered.filter(t => t.agent_name === f.agent);
+  if (f.dateFrom) filtered = filtered.filter(t => t.start_date && t.start_date >= f.dateFrom);
+  if (f.dateTo) filtered = filtered.filter(t => t.end_date && t.end_date <= f.dateTo);
+  if (f.search) filtered = filtered.filter(t =>
+    (t.title||'').toLowerCase().includes(f.search) ||
+    (t.description||'').toLowerCase().includes(f.search) ||
+    (t.agent_name||'').toLowerCase().includes(f.search) ||
+    (t.area_name||'').toLowerCase().includes(f.search)
+  );
+  // Sort
+  const priorityOrder = {alta:0, media:1, baja:2};
+  switch(f.sort) {
+    case 'progress-desc': filtered.sort((a,b) => b.progress - a.progress); break;
+    case 'progress-asc': filtered.sort((a,b) => a.progress - b.progress); break;
+    case 'priority': filtered.sort((a,b) => (priorityOrder[a.priority]||1) - (priorityOrder[b.priority]||1)); break;
+    case 'area': filtered.sort((a,b) => (a.area_name||'').localeCompare(b.area_name||'')); break;
+    case 'date-desc': filtered.sort((a,b) => (b.start_date||'').localeCompare(a.start_date||'')); break;
+    case 'date-asc': filtered.sort((a,b) => (a.start_date||'').localeCompare(b.start_date||'')); break;
+  }
+  return filtered;
+}
+
+function resetFilters() {
+  document.getElementById('fArea').value = '';
+  document.getElementById('fStatus').value = '';
+  document.getElementById('fPriority').value = '';
+  document.getElementById('fAgent').value = '';
+  document.getElementById('fDateFrom').value = '';
+  document.getElementById('fDateTo').value = '';
+  document.getElementById('fSearch').value = '';
+  applyFilters();
+}
+
+function renderActiveFilters(f) {
+  const el = document.getElementById('activeFilters');
+  let chips = '';
+  if (f.area) chips += `<span class="filter-chip">Área: ${f.area} <span class="chip-x" onclick="document.getElementById('fArea').value='';applyFilters()">×</span></span>`;
+  if (f.status) chips += `<span class="filter-chip">Estado: ${STATUS_LABELS[f.status]||f.status} <span class="chip-x" onclick="document.getElementById('fStatus').value='';applyFilters()">×</span></span>`;
+  if (f.priority) chips += `<span class="filter-chip">Prioridad: ${PRIORITY_LABELS[f.priority]||f.priority} <span class="chip-x" onclick="document.getElementById('fPriority').value='';applyFilters()">×</span></span>`;
+  if (f.agent) chips += `<span class="filter-chip">Responsable: ${f.agent} <span class="chip-x" onclick="document.getElementById('fAgent').value='';applyFilters()">×</span></span>`;
+  if (f.dateFrom) chips += `<span class="filter-chip">Desde: ${fmtDate(f.dateFrom)} <span class="chip-x" onclick="document.getElementById('fDateFrom').value='';applyFilters()">×</span></span>`;
+  if (f.dateTo) chips += `<span class="filter-chip">Hasta: ${fmtDate(f.dateTo)} <span class="chip-x" onclick="document.getElementById('fDateTo').value='';applyFilters()">×</span></span>`;
+  if (f.search) chips += `<span class="filter-chip">Buscar: "${f.search}" <span class="chip-x" onclick="document.getElementById('fSearch').value='';applyFilters()">×</span></span>`;
+  el.innerHTML = chips;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// RENDER STATS
+// ═══════════════════════════════════════════════════════════════════
+function renderStats(tasks) {
+  const total = tasks.length;
+  const enProgreso = tasks.filter(t=>t.status==='en_progreso').length;
+  const pendientes = tasks.filter(t=>t.status==='pendiente').length;
+  const completadas = tasks.filter(t=>t.status==='completada').length;
+  const pausadas = tasks.filter(t=>t.status==='pausada'||t.status==='cancelada').length;
+  const avg = total > 0 ? Math.round(tasks.reduce((s,t)=>s+t.progress,0)/total) : 0;
+  
+  const totalStages = tasks.reduce((s,t) => s + (t.stages||[]).length, 0);
+
+  document.getElementById('statsGrid').innerHTML = `
+    <div class="stat-card c-blue">
+      <div class="stat-icon">📋</div>
+      <div class="stat-number">${total}</div>
+      <div class="stat-label">Total Tareas</div>
+    </div>
+    <div class="stat-card c-yellow">
+      <div class="stat-icon">⏳</div>
+      <div class="stat-number">${pendientes}</div>
+      <div class="stat-label">Pendientes</div>
+    </div>
+    <div class="stat-card c-blue">
+      <div class="stat-icon">🔄</div>
+      <div class="stat-number">${enProgreso}</div>
+      <div class="stat-label">En Progreso</div>
+    </div>
+    <div class="stat-card c-green">
+      <div class="stat-icon">✅</div>
+      <div class="stat-number">${completadas}</div>
+      <div class="stat-label">Completadas</div>
+    </div>
+    <div class="stat-card c-purple">
+      <div class="stat-icon">📊</div>
+      <div class="stat-number">${avg}%</div>
+      <div class="stat-label">Avance Promedio</div>
+    </div>
+    <div class="stat-card c-red">
+      <div class="stat-icon">📐</div>
+      <div class="stat-number">${totalStages}</div>
+      <div class="stat-label">Etapas Totales</div>
+    </div>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// RENDER CHARTS (CSS-only, no external libs)
+// ═══════════════════════════════════════════════════════════════════
+function renderDonut(tasks) {
+  const statuses = ['en_progreso','pendiente','completada','pausada','cancelada'];
+  const colors = {
+    en_progreso:'var(--accent)', pendiente:'var(--text-muted)',
+    completada:'var(--success)', pausada:'var(--warning)', cancelada:'var(--danger)'
+  };
+  const counts = {};
+  statuses.forEach(s => counts[s] = tasks.filter(t=>t.status===s).length);
+  const total = tasks.length || 1;
+  
+  // Build conic-gradient
+  let gradParts = [];
+  let cum = 0;
+  statuses.forEach(s => {
+    if (counts[s] > 0) {
+      const pct = (counts[s]/total)*100;
+      gradParts.push(`${colors[s]} ${cum}% ${cum+pct}%`);
+      cum += pct;
+    }
+  });
+  if (gradParts.length === 0) gradParts = ['var(--prog-track) 0% 100%'];
+
+  const avg = tasks.length > 0 ? Math.round(tasks.reduce((s,t)=>s+t.progress,0)/tasks.length) : 0;
+
+  let legend = statuses.filter(s=>counts[s]>0).map(s =>
+    `<span class="legend-item"><span class="legend-dot" style="background:${colors[s]}"></span>${STATUS_LABELS[s]} (${counts[s]})</span>`
+  ).join('');
+
+  document.getElementById('donutChart').innerHTML = `
+    <div class="donut-wrapper">
+      <div style="width:160px;height:160px;border-radius:50%;background:conic-gradient(${gradParts.join(',')});display:flex;align-items:center;justify-content:center;">
+        <div style="width:100px;height:100px;border-radius:50%;background:var(--bg-surface);display:flex;align-items:center;justify-content:center;flex-direction:column;">
+          <span class="big">${avg}%</span>
+          <span class="sub">Avance</span>
+        </div>
+      </div>
+    </div>
+    <div class="donut-legend">${legend}</div>
+  `;
+}
+
+function renderBarChart(tasks) {
+  // Count by area
+  const areaCounts = {};
+  RAW_DATA.areas.forEach(a => areaCounts[a.name] = 0);
+  tasks.forEach(t => { if(t.area_name) areaCounts[t.area_name]++; });
+  const maxVal = Math.max(1, ...Object.values(areaCounts));
+
+  let html = '';
+  RAW_DATA.areas.forEach(a => {
+    const c = areaCounts[a.name] || 0;
+    const h = Math.max(4, (c/maxVal)*140);
+    html += `
+      <div class="bar-col">
+        <div class="bar-val">${c}</div>
+        <div class="bar-fill" style="height:${h}px;background:${a.color}"></div>
+        <div class="bar-label" title="${a.name}">${a.name}</div>
+      </div>
+    `;
+  });
+  document.getElementById('barChart').innerHTML = html;
+}
+
+function renderProgressChart(tasks) {
+  // Avg progress by area
+  const areaData = {};
+  RAW_DATA.areas.forEach(a => areaData[a.name] = {sum:0, count:0, color:a.color});
+  tasks.forEach(t => {
+    if(t.area_name && areaData[t.area_name]) {
+      areaData[t.area_name].sum += t.progress;
+      areaData[t.area_name].count++;
+    }
+  });
+
+  let html = '';
+  RAW_DATA.areas.forEach(a => {
+    const d = areaData[a.name];
+    const avg = d.count > 0 ? Math.round(d.sum/d.count) : 0;
+    html += `
+      <div class="progress-row">
+        <div class="progress-row-top">
+          <span class="progress-area-name">${a.name}</span>
+          <span class="progress-area-pct" style="color:${a.color}">${avg}%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" style="width:${avg}%;background:${a.color}"></div>
+        </div>
+      </div>
+    `;
+  });
+  document.getElementById('progressChart').innerHTML = html;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// RENDER TASK CARDS
+// ═══════════════════════════════════════════════════════════════════
+function renderTaskCards(tasks) {
+  const grid = document.getElementById('tasksGrid');
+  if (tasks.length === 0) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="icon">🔍</div><div class="msg">No se encontraron tareas</div><div class="hint">Intenta ajustar los filtros de búsqueda</div></div>`;
+    return;
+  }
+  
+  grid.innerHTML = tasks.map((t, idx) => {
+    const aColor = AREA_COLORS[t.area_name] || 'var(--accent)';
+    const pColor = getProgressColor(t.progress);
+    const hasStages = t.stages && t.stages.length > 0;
+    const cardId = `card-${t.id}`;
+
+    let stagesHtml = '';
+    if (hasStages) {
+      stagesHtml = t.stages.map(s => {
+        const sc = getProgressColor(s.progress);
+        let metricsHtml = '';
+        if (s.metrics && s.metrics.length > 0) {
+          metricsHtml = '<div style="margin-top:6px">' + s.metrics.map(m => {
+            const tv = parseFloat(m.target_value), cv = parseFloat(m.current_value);
+            const pct = tv > 0 ? Math.min(100, Math.round(cv/tv*100)) : 0;
+            const mc = getProgressColor(pct);
+            return `<div class="metric-mini">
+              <span class="metric-mini-name" title="${m.name}">${m.name}</span>
+              <div class="metric-mini-track"><div class="metric-mini-fill" style="width:${pct}%;background:${mc}"></div></div>
+              <span class="metric-mini-val">${fmtNum(cv)}/${fmtNum(tv)} ${m.unit||''}</span>
+            </div>`;
+          }).join('') + '</div>';
+        }
+        return `
+          <div class="stage-mini stg-${s.status||'pendiente'}">
+            <div class="stage-mini-top">
+              <span class="stage-mini-name">${s.title}</span>
+              <span class="stage-mini-pct" style="color:${sc}">${s.progress}%</span>
+            </div>
+            ${s.agent_name ? `<div class="stage-mini-agent">👤 ${s.agent_name}</div>` : ''}
+            <div class="progress-track"><div class="progress-fill" style="width:${s.progress}%;background:${sc}"></div></div>
+            ${metricsHtml}
+          </div>
+        `;
+      }).join('');
+    }
+
+    return `
+      <div class="task-card" style="animation-delay:${idx*0.05}s">
+        <div class="card-accent" style="background:${aColor}"></div>
+        <div class="card-body">
+          <div class="card-header">
+            <div class="card-badges">
+              <span class="badge badge-area" style="color:${aColor};border-color:${aColor}44;background:${aColor}15">${t.area_name||'—'}</span>
+              <span class="badge badge-priority-${t.priority}">${PRIORITY_LABELS[t.priority]||t.priority}</span>
+            </div>
+            <span class="badge badge-status status-${t.status}">${STATUS_LABELS[t.status]||t.status}</span>
+          </div>
+          <div class="card-title">${t.title}</div>
+          ${t.description ? `<div class="card-desc">${t.description}</div>` : ''}
+          <div class="card-meta">
+            ${t.agent_name ? `<span>👤 ${t.agent_name}</span>` : ''}
+            ${t.start_date ? `<span>📅 ${fmtDate(t.start_date)}</span>` : ''}
+            ${t.end_date ? `<span>→ ${fmtDate(t.end_date)}</span>` : ''}
+          </div>
+          <div class="card-progress">
+            <div class="progress-track"><div class="progress-fill" style="width:${t.progress}%;background:${pColor}"></div></div>
+            <span class="pct" style="color:${pColor}">${t.progress}%</span>
+          </div>
+        </div>
+        ${hasStages ? `
+          <button class="card-toggle" onclick="toggleStages('${cardId}', this)">
+            <span class="arrow">▼</span> ${t.stages.length} etapa${t.stages.length>1?'s':''}
+          </button>
+          <div class="card-stages-content" id="${cardId}">
+            <div style="padding:12px 20px 16px">
+              <div class="card-stages-title">Etapas (${t.stages.length})</div>
+              ${stagesHtml}
+            </div>
+          </div>
+        ` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
+function toggleStages(id, btn) {
+  const el = document.getElementById(id);
+  el.classList.toggle('open');
+  btn.classList.toggle('expanded');
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// RENDER TABLE
+// ═══════════════════════════════════════════════════════════════════
+function renderTable(tasks) {
+  const tbody = document.getElementById('tasksTableBody');
+  if (tasks.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--text-muted)">No se encontraron tareas</td></tr>';
+    return;
+  }
+  tbody.innerHTML = tasks.map(t => {
+    const pColor = getProgressColor(t.progress);
+    const aColor = AREA_COLORS[t.area_name] || 'var(--accent)';
+    return `
+      <tr>
+        <td><span class="table-title">${t.title}</span></td>
+        <td><span class="badge badge-area" style="color:${aColor};border-color:${aColor}44;background:${aColor}15">${t.area_name||'—'}</span></td>
+        <td>${t.agent_name||'—'}</td>
+        <td><span class="badge badge-priority-${t.priority}">${PRIORITY_LABELS[t.priority]||''}</span></td>
+        <td><span class="badge badge-status status-${t.status}">${STATUS_LABELS[t.status]||''}</span></td>
+        <td>${fmtDate(t.start_date)}</td>
+        <td>${fmtDate(t.end_date)}</td>
+        <td>
+          <div class="table-prog-wrap">
+            <div class="progress-track"><div class="progress-fill" style="width:${t.progress}%;background:${pColor}"></div></div>
+            <span class="pct" style="color:${pColor}">${t.progress}%</span>
+          </div>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// MAIN APPLY
+// ═══════════════════════════════════════════════════════════════════
+function applyFilters() {
+  const f = getFilters();
+  const tasks = filterTasks();
+  renderActiveFilters(f);
+  document.getElementById('resultsCount').textContent = 
+    tasks.length === TASKS.length ? '' : `Mostrando ${tasks.length} de ${TASKS.length} tareas`;
+  document.getElementById('taskCount').textContent = tasks.length;
+  renderStats(tasks);
+  renderDonut(tasks);
+  renderBarChart(tasks);
+  renderProgressChart(tasks);
+  renderTaskCards(tasks);
+  renderTable(tasks);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════════
+(function init() {
+  // Set generated date
+  const now = new Date();
+  document.getElementById('genDate').textContent = 
+    now.toLocaleDateString('es-AR', {day:'2-digit',month:'2-digit',year:'numeric'}) + 
+    ' ' + now.toLocaleTimeString('es-AR', {hour:'2-digit',minute:'2-digit'});
+  
+  populateFilters();
+  applyFilters();
+})();
+</script>
+</body>
+</html>

@@ -1024,6 +1024,12 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
+   MOBILE FILTERS HANDLE (hidden on desktop)
+   ═══════════════════════════════════════════════════════════════════ */
+.filters-mobile-handle { display: none; }
+.filters-scroll { display: contents; }
+
+/* ═══════════════════════════════════════════════════════════════════
    ANIMATIONS
    ═══════════════════════════════════════════════════════════════════ */
 @keyframes fadeIn {
@@ -1051,11 +1057,98 @@ body {
   .header-left { flex-direction: column; }
   .header-sep { width: 44px; height: 1px; }
   .header-right { flex-direction: column; }
-  .content { padding: 20px 16px; }
+  .content { padding: 20px 16px 100px; }
   .charts-grid { grid-template-columns: 1fr; }
   .tasks-grid { grid-template-columns: 1fr; }
-  .filters-bar { flex-direction: column; }
-  .filter-select, .filter-input { min-width: 100%; }
+
+  /* ── MOBILE FILTERS: fixed bottom horizontal bar ── */
+  .filters-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    margin: 0;
+    padding: 0;
+    flex-direction: column;
+    gap: 0;
+    background: var(--bg-surface);
+    border-top: 1px solid var(--border-strong);
+    box-shadow: 0 -4px 24px rgba(0,0,0,0.18);
+    transform: translateY(calc(100% - 48px));
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .filters-bar.mobile-open {
+    transform: translateY(0);
+  }
+
+  /* Toggle handle (visible on mobile only) */
+  .filters-mobile-handle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 48px;
+    width: 100%;
+    background: var(--bg-surface);
+    border: none;
+    border-bottom: 1px solid var(--border);
+    color: var(--accent);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .filters-mobile-handle .handle-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+    font-size: 11px;
+  }
+  .filters-bar.mobile-open .filters-mobile-handle .handle-arrow {
+    transform: rotate(180deg);
+  }
+  .filters-mobile-handle .filter-active-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--danger);
+    display: none;
+  }
+  .filters-mobile-handle .filter-active-dot.visible {
+    display: inline-block;
+  }
+
+  /* Scrollable horizontal filters area */
+  .filters-scroll {
+    display: flex !important;
+    overflow-x: auto;
+    gap: 10px;
+    padding: 12px 16px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .filters-scroll::-webkit-scrollbar { display: none; }
+
+  .filters-bar .filter-group {
+    flex-shrink: 0;
+    min-width: auto;
+  }
+  .filters-bar .filter-select,
+  .filters-bar .filter-input {
+    min-width: 130px;
+    font-size: 13px;
+    padding: 9px 12px;
+  }
+  .filters-bar .filter-input[style*="min-width:180px"] {
+    min-width: 160px !important;
+  }
+  .filters-bar .btn-reset {
+    flex-shrink: 0;
+    align-self: center;
+    white-space: nowrap;
+    padding: 9px 16px;
+  }
 }
 @media (max-width: 600px) {
   .stats-grid { grid-template-columns: 1fr 1fr; }
@@ -1137,6 +1230,12 @@ body {
 
   <!-- FILTERS -->
   <div class="filters-bar" id="filtersBar">
+    <button class="filters-mobile-handle" onclick="toggleMobileFilters()">
+      <span class="handle-arrow">▲</span>
+      Filtros
+      <span class="filter-active-dot" id="filterDot"></span>
+    </button>
+    <div class="filters-scroll">
     <div class="filter-group">
       <span class="filter-label">Área</span>
       <select class="filter-select" id="fArea" onchange="applyFilters()">
@@ -1182,6 +1281,7 @@ body {
       <input type="text" class="filter-input" id="fSearch" placeholder="Título, descripción..." oninput="applyFilters()" style="min-width:180px">
     </div>
     <button class="btn-reset" onclick="resetFilters()">✕ Limpiar</button>
+    </div>
   </div>
 
   <!-- Active filter chips -->
@@ -1699,12 +1799,35 @@ function renderTable(tasks) {
 }
 
 // ═══════════════════════════════════════════════════════════════════
+// MOBILE FILTERS
+// ═══════════════════════════════════════════════════════════════════
+function toggleMobileFilters() {
+  document.getElementById('filtersBar').classList.toggle('mobile-open');
+}
+
+function updateFilterDot() {
+  const f = getFilters();
+  const hasActive = f.area || f.status || f.priority || f.agent || f.dateFrom || f.dateTo || f.search;
+  const dot = document.getElementById('filterDot');
+  if (dot) dot.classList.toggle('visible', !!hasActive);
+}
+
+// Close mobile filters when clicking outside
+document.addEventListener('click', function(e) {
+  const bar = document.getElementById('filtersBar');
+  if (bar && bar.classList.contains('mobile-open') && !bar.contains(e.target)) {
+    bar.classList.remove('mobile-open');
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════════
 // MAIN APPLY
 // ═══════════════════════════════════════════════════════════════════
 function applyFilters() {
   const f = getFilters();
   const tasks = filterTasks();
   renderActiveFilters(f);
+  updateFilterDot();
   document.getElementById('resultsCount').textContent = 
     tasks.length === TASKS.length ? '' : `Mostrando ${tasks.length} de ${TASKS.length} tareas`;
   document.getElementById('taskCount').textContent = tasks.length;
@@ -1732,3 +1855,4 @@ function applyFilters() {
 </script>
 </body>
 </html>
+
